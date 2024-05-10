@@ -38,9 +38,10 @@ body{
   border-left: 10px black solid;
 }
 .country_selection{
-  width: 400px;
+  max-width: 400px;
   background-color: white;
-  margin-left: 20%;
+  margin:auto;
+  min-width: 250px;
   
 }
 #form{

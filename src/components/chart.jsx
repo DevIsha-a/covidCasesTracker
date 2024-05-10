@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import './chart.css'
-import { Line, Bar,  } from "react-chartjs-2";
+import { Bar, } from "react-chartjs-2";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -9,66 +9,34 @@ import {
     Title,
     Tooltip,
     Legend,
-  } from 'chart.js';
-  ChartJS.register(
+} from 'chart.js';
+ChartJS.register(
     CategoryScale,
     LinearScale,
     BarElement,
     Title,
     Tooltip,
     Legend
-  );
+);
 
-const Chart = ({ country }) => {
-
-
-    console.log(country)
-    const [countryInfo, setcountryInfo] = useState([])
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const url = country === "WorlWide" ? `https://disease.sh/v3/covid-19/all` : `https://disease.sh/v3/covid-19/countries/${country}`;
-            await fetch(url)
-                .then((response) => response.json())
-                .then(data => { setcountryInfo(data) })
-                .then((data) => console.log(data))
+const Chart = ({ country, totalDeaths, totalCases, totalRecovered }) => {
 
 
-        }
-
-      console.log(`total cases in ${countryInfo.country}:` + countryInfo.cases)
-        console.log(`total deaths in ${country}: ` + countryInfo.deaths)
-       console.log(`total recoverd in ${country}:`  + countryInfo.recovered)
-        fetchData();
-    },[])
-
-
- const   data={
+    const data = {
         labels: ['Infected', 'Deaths', 'Recovered'],
         datasets: [
             {
                 label: 'people',
-                backgroundColor:['blue', 'green', 'red'],
-                data: [countryInfo.cases, countryInfo.recovered, countryInfo.deaths],
+                backgroundColor: ['blue', 'green', 'red'],
+                data: [totalCases, totalRecovered, totalDeaths,]
             }
-            
         ],
-        
     }
-
-
-
-
-
-
     return <div>
-
-       
-<Bar  data={data}  id='chart'/>
-            
+        <Bar data={data} id='chart' />
     </div>
 }
- export default Chart;
+export default Chart;
 
 
 
